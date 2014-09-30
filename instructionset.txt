@@ -1,0 +1,205 @@
+EXAMPLE FORMAT:
+1)  add       c,        e
+    01000010  00001010  00001100
+2)  add       a,        45d
+    01000011  00001000  00000000  00101101
+3)  nop
+    00001000
+4)  shr       b,        3d
+    00100000  00001001  00000000  00000011
+5)  mov       bd,       [iy]
+    00010010  00100110  00000010  01000010
+Instructions that require two registers of the same bit width
+be specified when they do not will be marked as invalid when
+executed at runtime, and all bytes that make up that opcode
+will be treated as NOP ("no operation") instructions.
+
+REGISTERS:
+immediate
+00000000
+immediate memory
+00000001
+register memory
+00000010
+internal
+000001xx
+  pc = program counter
+  f = flags
+    c = carry
+    o = overflow
+    z = zero
+general 8-bit
+00001xxx
+  a = accumulator a
+  b = accumulator b
+  c = accumulator c
+  d = accumulator d
+  e = accumulator e
+general 16-bit (two compound 8-bit registers)
+001xxxxx
+  ab
+  ac
+  ad
+  ae
+  ba
+  bc
+  bd
+  be
+  ca
+  cb
+  cd
+  ce
+  da
+  db
+  dc
+  de
+  ea
+  eb
+  ec
+  ed
+pointers
+010xxxxx
+  s = stack pointer (8-bit)
+  ix = generic pointer
+  iy = generic pointer
+  iz = generic pointer
+
+INSTRUCTION SET:
+miscellaneous
+00001xxx
+  nop
+  hlt
+  clc
+  stc
+  cmp reg reg
+      reg imm
+      imm reg
+  rep (do "loadp", "storep", "movp" for {c} number of times)
+data manipulation
+0001xxxx
+  mov reg = reg
+      [reg] = reg
+      reg = [reg]
+      reg = imm
+      [imm] = reg
+      reg = [imm]
+  xchg reg <=> reg
+  loadp ix (mov a, [ix]; ix++)
+        iy (mov a, [iy]; iy++)
+        iz (mov a, [iz]; iz++)
+  storep
+        ix (mov [ix], a; ix++)
+        iy (mov [iy], a; iy++)
+        iz (mov [iz], a; iz++)
+  movep iy, ix (mov [iy], [ix]; iy++; ix++)
+        iy, iz (mov [iy], [iz]; iy++; iz++)
+        ix, iy (mov [ix], [iy]; ix++; iy++)
+        ix, iz (mov [ix], [iz]; ix++; iz++)
+        iz, ix (mov [iz], [ix]; iz++; ix++)
+        iz, iy (mov [iz], [iy]; iz++; iy++)
+bitwise manipulation
+0010xxxx
+  shr reg imm
+      reg reg
+  shl reg imm
+      reg reg
+  ror reg imm
+      reg reg
+  rol reg imm
+      reg reg
+  and reg, reg
+      reg, imm
+  or  reg, reg
+      reg, imm
+  not reg
+  nand reg, reg
+       reg, imm
+  nor reg, reg
+      reg, imm
+  xor reg, reg
+      reg, imm
+  xnor reg, reg
+       reg, imm
+jump
+0011xxxx
+  jmp imm
+  jc imm (jmp if carry set)
+  jnc imm (jmp if carry not set)
+  jg imm (jmp if greater)
+  jle imm (jmp if less than or equal)
+  jl imm (jmp if less)
+  jge imm (jmp if greater than or equal)
+  je imm (jmp if equal)
+  jne imm (jmp if not equal)
+  loop imm (c--, if c>0 then jump)
+  loope imm (c--, if c>0 && zf==1 then jump)
+  loopne imm (c--, if c>0 && zf==0 then jump)
+math
+010xxxxx
+  inc reg
+  dec reg
+  add reg = reg + reg
+      reg = reg + imm
+      reg = reg + [reg]
+      reg = reg + [imm]
+  adc reg = reg + reg + carry
+      reg = reg + imm + carry
+      reg = reg + [reg] + carry
+      reg = reg + [imm] + carry
+  sub reg = reg - reg
+      reg = reg - imm
+      reg = reg - [reg]
+      reg = reg - [imm]
+  sbb reg = reg - reg + carry
+      reg = reg - imm + carry
+      reg = reg - [reg] + carry
+      reg = reg - [imm] + carry
+  mul reg = reg * reg
+      reg = reg * imm
+      reg = reg * [reg]
+      reg = reg * [imm]
+  div reg = reg / reg, reg = mod (div reg, <param>, reg)
+      reg = reg / imm, reg = mod
+      reg = reg / [reg], reg = mod
+      reg = reg / [imm], reg = mod
+stack
+01100xxx
+  pusha (...
+    push a
+    push b
+    push c
+    push d
+    push e
+    push ix
+    push iy
+    push iz ...)
+  push reg
+       flag
+       imm
+  popa (...
+    pop iz
+    pop iy
+    pop ix
+    pop e
+    pop d
+    pop c
+    pop b
+    pop a ...)
+  pop reg
+  call imm
+  ret
+io
+01101xxx
+  in reg
+  out reg reg
+      imm reg
+      reg imm
+      imm imm
+interrupts
+01110xxx
+  sti
+  cli
+  iret
+  int imm
+reserved extended:
+1xxxxxxx
