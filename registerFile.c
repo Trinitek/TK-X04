@@ -1,10 +1,28 @@
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "registerFile.h"
+
+/*
+ * This file declares the global register variables and internal flags.
+ * To use these registers, include "registerFile.h" into the source file
+ * that needs to access them.
+ */
 
 // Internal
 uint16_t regPC;
-uint8_t regFlags;
+
+bool flagCarry;
+bool flagOverflow;
+bool flagZero;
+
+uint8_t getRegFlags(void) {
+    uint8_t regFlags = 0;
+    regFlags += flagCarry * 0b00000001;
+    regFlags += flagOverflow * 0b00000010;
+    regFlags += flagZero * 0b00000100;
+    return regFlags;
+}
 
 // General 8-bit
 uint8_t regA;

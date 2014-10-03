@@ -1,7 +1,12 @@
 
 // Internal
 extern uint16_t regPC;
-extern uint8_t regFlags;
+
+extern bool flagCarry;
+extern bool flagOverflow;
+extern bool flagZero;
+
+extern uint8_t regFlags(void);
 
 // General 8-bit
 extern uint8_t regA;
