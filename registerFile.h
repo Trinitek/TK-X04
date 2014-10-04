@@ -31,18 +31,6 @@ extern uint16_t regBA;
 extern uint16_t regBC;
 extern uint16_t regBD;
 extern uint16_t regBE;
-extern uint16_t regCA;
-extern uint16_t regCB;
-extern uint16_t regCD;
-extern uint16_t regCE;
-extern uint16_t regDA;
-extern uint16_t regDB;
-extern uint16_t regDC;
-extern uint16_t regDE;
-extern uint16_t regEA;
-extern uint16_t regEB;
-extern uint16_t regEC;
-extern uint16_t regED;
 
 // Pointers
 extern uint8_t regStack;

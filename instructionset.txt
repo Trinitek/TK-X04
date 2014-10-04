@@ -45,18 +45,7 @@ general 16-bit (two compound 8-bit registers)
   bc
   bd
   be
-  ca
-  cb
-  cd
-  ce
-  da
-  db
-  dc
-  de
-  ea
-  eb
-  ec
-  ed
+
 pointers
 010xxxxx
   s = stack pointer (8-bit)
