@@ -12,18 +12,6 @@
 // Internal
 uint16_t regPC;
 
-bool flagCarry;
-bool flagOverflow;
-bool flagZero;
-
-uint8_t getRegFlags(void) {
-    uint8_t regFlags = 0;
-    regFlags += flagCarry * 0b00000001;
-    regFlags += flagOverflow * 0b00000010;
-    regFlags += flagZero * 0b00000100;
-    return regFlags;
-}
-
 // General 8-bit
 uint8_t regA;
 uint8_t regB;

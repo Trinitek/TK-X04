@@ -2,11 +2,18 @@
 // Internal
 extern uint16_t regPC;
 
-extern bool flagCarry;
-extern bool flagOverflow;
-extern bool flagZero;
-
-extern uint8_t regFlags(void);
+typedef union {
+    struct {
+        bool carry  : 1;
+        bool over   : 1;
+        bool zero   : 1;
+        bool intupt : 1;
+        bool        : 4;
+    };
+    struct {
+        uint8_t     : 8;
+    };
+} regFlags;
 
 // General 8-bit
 extern uint8_t regA;
