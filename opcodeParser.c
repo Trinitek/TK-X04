@@ -1,6 +1,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "registerFile.h"
+#include "paramParser.h"
 
 bool parseOpcode(uint8_t opcode) {
     // MISCELLANEOUS BLOCK
@@ -12,10 +14,18 @@ bool parseOpcode(uint8_t opcode) {
             case 0b00001001:    // HLT
                 break;
             case 0b00001010:    // CLC
+                regFlags.carry = false;
                 break;
             case 0b00001011:    // STC
+                regFlags.carry = true;
                 break;
             case 0b00001100:    // CMP
+                paramA.imm = true;
+                paramA.immPtr = false;
+                paramA.reg = true;
+                paramA.regPtr = false;
+                paramB = paramA;
+                parseParam(2);
                 break;
             case 0b00001101:    // REP
                 break;
@@ -157,8 +167,10 @@ bool parseOpcode(uint8_t opcode) {
         switch(opcode) {
             default: return false;
             case 0b01110000:    // STI
+                regFlags.intupt = true;
                 break;
             case 0b01110001:    // CLI
+                regFlags.intupt = false;
                 break;
             case 0b01110010:    // IRET
                 break;
