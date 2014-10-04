@@ -44,3 +44,7 @@ Temporary Items
 
 # MPLABX
 nbproject/
+build/
+dist/
+funclist
+l.obj
