@@ -28,6 +28,7 @@ internal
     c = carry
     o = overflow
     z = zero
+    i = interrupt
 general 8-bit
 00001xxx
   a = accumulator a
@@ -35,16 +36,12 @@ general 8-bit
   c = accumulator c
   d = accumulator d
   e = accumulator e
+  f = accumulator f
 general 16-bit (two compound 8-bit registers)
 001xxxxx
   ab
-  ac
-  ad
-  ae
-  ba
-  bc
-  bd
-  be
+  cd
+  ef
 
 pointers
 010xxxxx

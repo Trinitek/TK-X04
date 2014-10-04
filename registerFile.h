@@ -1,5 +1,5 @@
 
-// Internal
+// ===== INTERNAL =====
 extern uint16_t regPC;
 
 typedef union {
@@ -13,27 +13,66 @@ typedef union {
     struct {
         uint8_t     : 8;
     };
-} regFlags;
+} regFlags_t;
+extern regFlags_t regFlags;
 
-// General 8-bit
-extern uint8_t regA;
-extern uint8_t regB;
-extern uint8_t regC;
-extern uint8_t regD;
-extern uint8_t regE;
+// ===== GENERIC 8-BIT AND EXTENDED 16-BIT =====
 
-// Extended 16-bit
-extern uint16_t regAB;
-extern uint16_t regAC;
-extern uint16_t regAD;
-extern uint16_t regAE;
-extern uint16_t regBA;
-extern uint16_t regBC;
-extern uint16_t regBD;
-extern uint16_t regBE;
+typedef union {
+    struct {
+        uint8_t regA;
+        uint8_t regB;
+    };
+    uint16_t;
+} regAB_t;
+extern regAB_t regAB;
 
-// Pointers
+typedef union {
+    struct {
+        uint8_t regC;
+        uint8_t regD;
+    };
+    uint16_t;
+} regCD_t;
+extern regCD_t regCD;
+
+typedef union {
+    struct {
+        uint8_t regE;
+        uint8_t regF;
+    };
+    uint16_t;
+} regEF_t;
+extern regEF_t regEF;
+
+// ===== POINTERS =====
+
 extern uint8_t regStack;
-extern uint16_t regIX;
-extern uint16_t regIY;
-extern uint16_t regIZ;
+
+typedef union {
+    struct {
+        uint8_t regIXh;
+        uint8_t regIXl;
+    };
+    uint16_t;
+} regIX_t;
+extern regIX_t regIX;
+
+typedef union {
+    struct {
+        uint8_t regIYh;
+        uint8_t regIYl;
+    };
+    uint16_t;
+} regIY_t;
+extern regIY_t regIY;
+
+typedef union {
+    struct {
+        uint8_t regIZh;
+        uint8_t regIZl;
+    };
+    uint16_t;
+} regIZ_t;
+extern regIZ_t regIZ;
+
