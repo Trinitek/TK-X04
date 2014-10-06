@@ -20,11 +20,11 @@ bool parseOpcode(uint8_t opcode) {
                 regFlags.carry = true;
                 break;
             case 0b00001100:    // CMP
-                paramA.imm = true;
-                paramA.immPtr = false;
-                paramA.reg = true;
-                paramA.regPtr = false;
-                paramB = paramA;
+                pTypeA.imm = true;
+                pTypeA.immPtr = false;
+                pTypeA.reg = true;
+                pTypeA.regPtr = false;
+                pTypeB = pTypeA;
                 parseParam(2);
                 break;
             case 0b00001101:    // REP
