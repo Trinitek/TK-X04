@@ -1,14 +1,24 @@
 
-struct paramType {
+typedef struct {
     bool reg;
     bool imm;
     bool regPtr;
     bool immPtr;
-};
+} paramType_t;
 
-extern struct paramType paramA;
-extern struct paramType paramB;
-extern struct paramType paramC;
-extern struct paramType paramD;
+extern paramType_t pTypeA;
+extern paramType_t pTypeB;
+extern paramType_t pTypeC;
+extern paramType_t pTypeD;
 
-void parseParam(uint8_t paramCount);
+typedef enum {
+    A, B, C, D
+} pIdentity_t;
+
+extern uint16_t paramA;
+extern uint16_t paramB;
+extern uint16_t paramC;
+extern uint16_t paramD;
+
+bool parseParam(uint8_t paramCount);
+uint16_t test_imm(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer);
