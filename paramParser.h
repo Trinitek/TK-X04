@@ -22,3 +22,6 @@ extern uint16_t paramD;
 
 bool parseParam(uint8_t paramCount);
 uint16_t test_imm(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer);
+uint16_t test_immPtr(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer);
+uint16_t test_reg(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer);
+uint16_t test_regPtr(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer);
