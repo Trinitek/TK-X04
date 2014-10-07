@@ -23,7 +23,7 @@ typedef union {
         uint8_t regA;
         uint8_t regB;
     };
-    uint16_t;
+    uint16_t regAB;
 } regAB_t;
 extern regAB_t regAB;
 
@@ -32,7 +32,7 @@ typedef union {
         uint8_t regC;
         uint8_t regD;
     };
-    uint16_t;
+    uint16_t regCD;
 } regCD_t;
 extern regCD_t regCD;
 
@@ -41,7 +41,7 @@ typedef union {
         uint8_t regE;
         uint8_t regF;
     };
-    uint16_t;
+    uint16_t regEF;
 } regEF_t;
 extern regEF_t regEF;
 
@@ -54,7 +54,7 @@ typedef union {
         uint8_t regIXh;
         uint8_t regIXl;
     };
-    uint16_t;
+    uint16_t regIX;
 } regIX_t;
 extern regIX_t regIX;
 
@@ -63,7 +63,7 @@ typedef union {
         uint8_t regIYh;
         uint8_t regIYl;
     };
-    uint16_t;
+    uint16_t regIY;
 } regIY_t;
 extern regIY_t regIY;
 
@@ -72,7 +72,7 @@ typedef union {
         uint8_t regIZh;
         uint8_t regIZl;
     };
-    uint16_t;
+    uint16_t regIZ;
 } regIZ_t;
 extern regIZ_t regIZ;
 
