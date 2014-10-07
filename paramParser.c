@@ -21,50 +21,50 @@ bool parseParam(uint8_t paramCount) {
     uint16_t pointer_reg;
     uint16_t pointer_immPtr;
     uint16_t pointer_regPtr;
+    paramType_t pTypeX;
+    pIdentity_t idX;
+    uint8_t i;
 
-    if (paramCount >= 1) {
-        pointer_imm = test_imm(pTypeA, A, pointer);
-        pointer_reg = test_reg(pTypeA, A, pointer);
-        pointer_immPtr = test_immPtr(pTypeA, A, pointer);
-        pointer_regPtr = test_regPtr(pTypeA, A, pointer);
-        
-        if (pointer_imm) pointer = pointer_imm;
-        else if (pointer_reg) pointer = pointer_reg;
-        else if (pointer_immPtr) pointer = pointer_immPtr;
-        else if (pointer_regPtr) pointer = pointer_regPtr;
-    }
-    if (paramCount >= 2) {
-        pointer_imm = test_imm(pTypeB, B, pointer);
-        pointer_reg = test_reg(pTypeB, B, pointer);
-        pointer_immPtr = test_immPtr(pTypeB, B, pointer);
-        pointer_regPtr = test_regPtr(pTypeB, B, pointer);
-
-        if (pointer_imm) pointer = pointer_imm;
-        else if (pointer_reg) pointer = pointer_reg;
-        else if (pointer_immPtr) pointer = pointer_immPtr;
-        else if (pointer_regPtr) pointer = pointer_regPtr;
-    }
-    if (paramCount >= 3) {
-        pointer_imm = test_imm(pTypeC, C, pointer);
-        pointer_reg = test_reg(pTypeC, C, pointer);
-        pointer_immPtr = test_immPtr(pTypeC, C, pointer);
-        pointer_regPtr = test_regPtr(pTypeC, C, pointer);
-
-        if (pointer_imm) pointer = pointer_imm;
-        else if (pointer_reg) pointer = pointer_reg;
-        else if (pointer_immPtr) pointer = pointer_immPtr;
-        else if (pointer_regPtr) pointer = pointer_regPtr;
-    }
-    if (paramCount >= 4) {
-        pointer_imm = test_imm(pTypeD, D, pointer);
-        pointer_reg = test_reg(pTypeD, D, pointer);
-        pointer_immPtr = test_immPtr(pTypeD, D, pointer);
-        pointer_regPtr = test_regPtr(pTypeD, D, pointer);
-
-        if (pointer_imm) pointer = pointer_imm;
-        else if (pointer_reg) pointer = pointer_reg;
-        else if (pointer_immPtr) pointer = pointer_immPtr;
-        else if (pointer_regPtr) pointer = pointer_regPtr;
+    for (i = 1; i <= paramCount; i++) {
+        switch (i) {
+            case 1:
+                pTypeX = pTypeA;
+                idX = A;
+                break;
+            case 2:
+                pTypeX = pTypeB;
+                idX = B;
+                break;
+            case 3:
+                pTypeX = pTypeC;
+                idX = C;
+                break;
+            case 4:
+                pTypeX = pTypeD;
+                idX = D;
+                break;
+        }
+        pointer_imm = test_imm(pTypeX, idX, pointer);
+        if (pointer_imm) {
+            pointer = pointer_imm;
+            break;
+        }
+        pointer_reg = test_reg(pTypeX, idX, pointer);
+        if (pointer_reg) {
+            pointer = pointer_reg;
+            break;
+        }
+        pointer_immPtr = test_immPtr(pTypeX, idX, pointer);
+        if (pointer_immPtr) {
+            pointer = pointer_immPtr;
+            break;
+        }
+        pointer_regPtr = test_regPtr(pTypeX, idX, pointer);
+        if (pointer_regPtr) {
+            pointer = pointer_regPtr;
+            break;
+        }
+        return false;
     }
     return true;
 }
