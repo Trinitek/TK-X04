@@ -15,12 +15,14 @@ executed at runtime, and all bytes that make up that opcode
 will be treated as NOP ("no operation") instructions.
 
 REGISTERS:
-immediate
+immediate 8-bit
 00000000
 immediate memory
 00000001
 register memory
 00000010
+immediate 16-bit
+00000011
 internal
 000001xx
   pc = program counter

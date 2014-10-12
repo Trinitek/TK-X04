@@ -89,7 +89,7 @@ bool parseParam(uint8_t paramCount) {
 }
 
 /**
- * Test for an immediate 8-bit value as a parameter.
+ * Test for an immediate 8-bit or 16-bit value as a parameter.
  * @param pType
  * @param pIdentity
  * @param pointer
@@ -97,8 +97,9 @@ bool parseParam(uint8_t paramCount) {
  */
 uint16_t test_imm(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer) {
     if (pType.imm && getMemByte(pointer) == 0b00000000) {
-        pointer++;
-        switch (pIdentity) {
+        // Test for 8-bit immediate values
+        if (getMemByte(pointer) == 0b00000000) {
+            switch (pIdentity) {
             case A:
                 paramA = getMemByte(pointer); break;
             case B:
@@ -107,8 +108,23 @@ uint16_t test_imm(paramType_t pType, pIdentity_t pIdentity, uint16_t pointer) {
                 paramC = getMemByte(pointer); break;
             case D:
                 paramD = getMemByte(pointer); break;
+            }
+            pointer++;
         }
-        pointer++;
+        // Test for 16-bit immediate values
+        else if (getMemByte(pointer) == 0b00000011) {
+            switch (pIdentity) {
+            case A:
+                paramA = getMemWord(pointer); break;
+            case B:
+                paramB = getMemWord(pointer); break;
+            case C:
+                paramC = getMemWord(pointer); break;
+            case D:
+                paramD = getMemWord(pointer); break;
+            }
+            pointer += 2;
+        }
         return pointer;
     } else return 0;
 }
